@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import gameRouter from './routes/gameRouter.js';
+import categoryRouter from './routes/categoryRouter.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -21,6 +22,7 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 
 
 app.use("/api/games", gameRouter)
+app.use("/api/category", categoryRouter)
 
 
 
