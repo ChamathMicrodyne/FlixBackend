@@ -7,12 +7,12 @@ export function saveGames(req, res) {
     .save()
     .then(() => {
       res.json({
-        message: "Product add successfully",
+        message: "Game add successfully",
       });
     })
     .catch((err) => {
       res.json({
-        message: "Product add failed",
+        message: "Game add failed",
         error: err
       });
     });
@@ -20,11 +20,11 @@ export function saveGames(req, res) {
 
 export async function getGames(req, res) {
   try {
-      const products = await Games.find();
-      res.json(products);
+      const game = await Games.find();
+      res.json(game);
   } catch (err) {
     res.json({
-      message: "Failed to get products",
+      message: "Failed to get Game",
       error: err,
     });
   }
@@ -36,11 +36,11 @@ export async function deleteGames(req, res) {
     await Games.deleteOne({ id: req.params.id });
 
     res.json({
-      message: `Product delete successfully. ${req.params.id}`,
+      message: `Game delete successfully. ${req.params.id}`,
     });
   } catch (err) {
     res.json({
-      message: "Faild to delete product",
+      message: "Faild to delete Game",
       error: err,
     });
   }
@@ -54,7 +54,7 @@ export async function updateGames(req, res) {
     await Games.updateOne({ id: gameId }, updatingData);
 
     res.json({
-      message: "Product updated successfully",
+      message: "Game updated successfully",
     });
   } catch (err) {
     res.status(500).json({
