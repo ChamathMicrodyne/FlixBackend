@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import gameRouter from './routes/gameRouter.js';
 import categoryRouter from './routes/categoryRouter.js';
@@ -15,9 +14,9 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000; // Vercel uses process.env.PORT
 
-// Existing middleware
+// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json()); // Replace bodyParser with express.json()
 
 // Load Swagger YAML file
 let swaggerDocument;
@@ -37,38 +36,33 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
   customCss: `
     .execute-wrapper,
     .btn.try-out,
-    .opblock .try-it-out {
-      display: none !important;
-    }
-    .opblock .execute-wrapper,
+    .opblock .try-it-out,
     .opblock-post .execute-wrapper {
       display: none !important;
     }
   `,
-  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css', // CDN for Vercel
+  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css',
   swaggerOptions: {
     persistAuthorization: false,
     docExpansion: 'none'
   }
 }));
 
-// Existing MongoDB connection
+// MongoDB connection with better error handling
 mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("Connected to the Database!");
-}).catch(() => {
-  console.log("Database connection Failed!");
+}).catch((err) => {
+  console.error("Database connection failed:", err.message);
+  process.exit(1); // Exit on connection failure in production
 });
 
-// Existing routes
+// Routes
 app.use("/api/games", gameRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/genre", genreRouter);
 app.use("/api/title", titleRouter);
 
-// Export for Vercel serverless
-const handler = app.listen(port, () => {
+app.listen(port, () => {
   console.log("Server is running on port " + port);
   console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
 });
-
-export default handler;
