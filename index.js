@@ -21,18 +21,33 @@ app.use(express.json());
 // Load Swagger YAML file
 let swaggerDocument;
 try {
-  swaggerDocument = JSON.parse(fs.readFileSync('./swagger.json', 'utf8'));
-  console.log('Swagger document loaded successfully');
+  swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf8"));
+  console.log("Swagger document loaded successfully");
 } catch (error) {
-  console.error('Error loading Swagger document:', error.message);
+  console.error("Error loading Swagger document:", error.message);
   swaggerDocument = {
-    openapi: '3.0.0',
-    info: { title: 'GameFlix Backend API', version: '1.0.0', description: 'Fallback API spec' }
+    openapi: "3.0.0",
+    info: {
+      title: "GameFlix Backend API",
+      version: "1.0.0",
+      description: "Fallback API spec",
+    },
+    servers: [
+      {
+        url: "https://flix-backend-psi.vercel.app",
+      },
+    ],
   };
 }
-
 // Setup Swagger UI with CDN for all assets
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+  swaggerJsUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.js',
+  swaggerStandalonePresetUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-standalone-preset.js',
+  swaggerOptions: {
+    persistAuthorization: false,
+    docExpansion: 'none'
+  }
+}));
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL).then(() => {
