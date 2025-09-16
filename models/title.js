@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const categorySchema = mongoose.Schema({
+const titleSchema = mongoose.Schema({
   id: {
     type: Number,
     required: true,
@@ -9,9 +9,12 @@ const categorySchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-  }
+  },
+  title: {
+    type: String
+  },
 });
 
-const Category = mongoose.model("category", categorySchema);
+const Title = mongoose.model("title", titleSchema);
 
-export default Category;
+export default Title;

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const categorySchema = mongoose.Schema({
+const genreSchema = mongoose.Schema({
   id: {
     type: Number,
     required: true,
@@ -12,6 +12,6 @@ const categorySchema = mongoose.Schema({
   }
 });
 
-const Category = mongoose.model("category", categorySchema);
+const Genre = mongoose.model("genre", genreSchema);
 
-export default Category;
+export default Genre;
