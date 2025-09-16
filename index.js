@@ -32,23 +32,7 @@ try {
 }
 
 // Setup Swagger UI with CDN for all assets
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-  customCss: `
-    .execute-wrapper,
-    .btn.try-out,
-    .opblock .try-it-out,
-    .opblock-post .execute-wrapper {
-      display: none !important;
-    }
-  `,
-  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css',
-  swaggerJsUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.js',
-  swaggerStandalonePresetUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-standalone-preset.js',
-  swaggerOptions: {
-    persistAuthorization: false,
-    docExpansion: 'none'
-  }
-}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL).then(() => {
