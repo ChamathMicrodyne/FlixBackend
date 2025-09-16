@@ -32,6 +32,7 @@ try {
 }
 
 // Setup Swagger UI with working CSS to hide "Try it out"
+// Setup Swagger UI with CDN for all assets (fixes Vercel blank page)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
   customCss: `
     .execute-wrapper,
@@ -42,6 +43,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
     }
   `,
   customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css',
+  swaggerJsUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.js',
+  swaggerStandalonePresetUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-standalone-preset.js',
   swaggerOptions: {
     persistAuthorization: false,
     docExpansion: 'none'
