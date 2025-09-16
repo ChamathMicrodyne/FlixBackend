@@ -7,12 +7,12 @@ export function saveTitle(req, res) {
     .save()
     .then(() => {
       res.json({
-        message: "Title add successfully",
+        message: "Title created successfully",
       });
     })
     .catch((err) => {
       res.json({
-        message: "Title add failed",
+        message: "Failed to create title",
         error: err
       });
     });
@@ -24,7 +24,7 @@ export async function getTitle(req, res) {
       res.json(title);
   } catch (err) {
     res.json({
-      message: "Failed to get titles",
+      message: "Failed to retrieve titles",
       error: err,
     });
   }
@@ -36,11 +36,11 @@ export async function deleteTitle(req, res) {
     await Title.deleteOne({ id: req.params.id });
 
     res.json({
-      message: `Title delete successfully. ${req.params.id}`,
+      message: `Title deleted successfully`,
     });
   } catch (err) {
     res.json({
-      message: "Faild to delete Title",
+      message: "Failed to delete title",
       error: err,
     });
   }
@@ -58,7 +58,7 @@ export async function updateTitle(req, res) {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Title server error",
+      message: "Internal server error",
       error: err,
     });
     return;

@@ -7,12 +7,12 @@ export function saveCategory(req, res) {
     .save()
     .then(() => {
       res.json({
-        message: "Category add successfully",
+        message: "Category created successfully",
       });
     })
     .catch((err) => {
       res.json({
-        message: "Category add failed",
+        message: "Failed to create category",
         error: err
       });
     });
@@ -22,9 +22,10 @@ export async function getCategory(req, res) {
   try {
       const category = await Category.find();
       res.json(category);
+      
   } catch (err) {
     res.json({
-      message: "Failed to get categorys",
+      message: "Failed to retrieve categories",
       error: err,
     });
   }
@@ -36,11 +37,11 @@ export async function deleteCategory(req, res) {
     await Category.deleteOne({ id: req.params.id });
 
     res.json({
-      message: `Category delete successfully. ${req.params.id}`,
+      message: `Category deleted successfully`,
     });
   } catch (err) {
     res.json({
-      message: "Faild to delete Category",
+      message: "Failed to delete category",
       error: err,
     });
   }
@@ -58,7 +59,7 @@ export async function updateCategory(req, res) {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Category server error",
+      message: "Internal server error",
       error: err,
     });
     return;

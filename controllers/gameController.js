@@ -7,12 +7,12 @@ export function saveGames(req, res) {
     .save()
     .then(() => {
       res.json({
-        message: "Game add successfully",
+        message: "Game created successfully",
       });
     })
     .catch((err) => {
-      res.json({
-        message: "Game add failed",
+      res.status(500).json({
+        message: "Failed to create game",
         error: err
       });
     });
@@ -24,7 +24,7 @@ export async function getGames(req, res) {
       res.json(game);
   } catch (err) {
     res.json({
-      message: "Failed to get Game",
+      message: "Failed to retrieve games",
       error: err,
     });
   }
@@ -36,11 +36,11 @@ export async function deleteGames(req, res) {
     await Games.deleteOne({ id: req.params.id });
 
     res.json({
-      message: `Game delete successfully. ${req.params.id}`,
+      message: `Game deleted successfully`,
     });
   } catch (err) {
     res.json({
-      message: "Faild to delete Game",
+      message: "Failed to delete game",
       error: err,
     });
   }

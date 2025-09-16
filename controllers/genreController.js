@@ -7,12 +7,12 @@ export function saveGenre(req, res) {
     .save()
     .then(() => {
       res.json({
-        message: "Genre add successfully",
+        message: "Genre created successfully",
       });
     })
     .catch((err) => {
       res.json({
-        message: "Genre add failed",
+        message: "Failed to create genre",
         error: err
       });
     });
@@ -24,7 +24,7 @@ export async function getGenre(req, res) {
       res.json(genre);
   } catch (err) {
     res.json({
-      message: "Failed to get genres",
+      message: "Failed to retrieve genres",
       error: err,
     });
   }
@@ -36,11 +36,11 @@ export async function deleteGenre(req, res) {
     await Genre.deleteOne({ id: req.params.id });
 
     res.json({
-      message: `Genre delete successfully. ${req.params.id}`,
+      message: `Genre deleted successfully`,
     });
   } catch (err) {
     res.json({
-      message: "Faild to delete Genre",
+      message: "Failed to delete genre",
       error: err,
     });
   }
@@ -58,7 +58,7 @@ export async function updateGenre(req, res) {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Genre server error",
+      message: "Internal server error",
       error: err,
     });
     return;
