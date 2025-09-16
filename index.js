@@ -24,22 +24,10 @@ try {
   console.log('Swagger document loaded successfully');
 } catch (error) {
   console.error('Error loading Swagger document:', error.message);
-  swaggerDocument = {
-    openapi: '3.0.0',
-    info: { title: 'GameFlix Backend API', version: '1.0.0', description: 'Fallback API spec' }
-  };
 }
 
 // Setup Swagger UI with CDN for all assets
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css',
-  swaggerJsUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.js',
-  swaggerStandalonePresetUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-standalone-preset.js',
-  swaggerOptions: {
-    persistAuthorization: false,
-    docExpansion: 'none'
-  }
-}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL).then(() => {
