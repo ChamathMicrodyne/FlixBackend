@@ -12,6 +12,7 @@ import fs from 'fs';
 
 dotenv.config();
 const app = express();
+const port = process.env.PORT || 3000
 
 // Middleware
 app.use(cors());
@@ -20,10 +21,14 @@ app.use(express.json());
 // Load Swagger YAML file
 let swaggerDocument;
 try {
-  swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml', 'utf8'));
+  swaggerDocument = JSON.parse(fs.readFileSync('./swagger.json', 'utf8'));
   console.log('Swagger document loaded successfully');
 } catch (error) {
   console.error('Error loading Swagger document:', error.message);
+  swaggerDocument = {
+    openapi: '3.0.0',
+    info: { title: 'GameFlix Backend API', version: '1.0.0', description: 'Fallback API spec' }
+  };
 }
 
 // Setup Swagger UI with CDN for all assets
@@ -44,4 +49,7 @@ app.use("/api/genre", genreRouter);
 app.use("/api/title", titleRouter);
 
 // Export for Vercel serverless
-export default app;
+app.listen(port, () => {
+  console.log("Server is running on port " + port);
+  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
+});
