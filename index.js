@@ -32,14 +32,6 @@ try {
 
 // Setup Swagger UI with CDN for all assets
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-  customCss: `
-    .execute-wrapper,
-    .btn.try-out,
-    .opblock .try-it-out,
-    .opblock-post .execute-wrapper {
-      display: none !important;
-    }
-  `,
   customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css',
   swaggerJsUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.js',
   swaggerStandalonePresetUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-standalone-preset.js',
@@ -53,7 +45,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
 mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("Connected to the Database!");
 }).catch((err) => {
-  console.error("Database connection failed:", err.message);
+  console.error("Database connection failed:", err.message, err.stack);
   process.exit(1);
 });
 
@@ -64,4 +56,4 @@ app.use("/api/genre", genreRouter);
 app.use("/api/title", titleRouter);
 
 // Export for Vercel serverless
-export default app; // Export the Express app as the handler
+export default app;

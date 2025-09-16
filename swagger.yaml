@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: GameFlix Backend API
-  version: 1.0.0
+  version: 1.0.1
   description: API for managing GameFlix site
 servers:
   - url: https://flix-backend-psi.vercel.app
