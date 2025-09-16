@@ -12,7 +12,6 @@ import fs from 'fs';
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -65,9 +64,4 @@ app.use("/api/genre", genreRouter);
 app.use("/api/title", titleRouter);
 
 // Export for Vercel serverless
-const handler = app.listen(port, () => {
-  console.log("Server is running on port " + port);
-  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
-});
-
-export default handler;
+export default app; // Export the Express app as the handler
