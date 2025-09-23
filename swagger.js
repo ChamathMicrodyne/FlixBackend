@@ -184,6 +184,7 @@ export const swaggerDocument = {
                   thumbnail: { type: "string" },
                   videoUrl: { type: "string" },
                   genre: { type: "string" },
+                  category: { type: "string" },
                   ReleaseYear: { type: "number" },
                   NOPlayes: { type: "number" },
                   AVGBet: { type: "number" },
@@ -777,11 +778,11 @@ export const swaggerDocument = {
     },
     "/api/navbaritem": {
       get: {
-        summary: "Retrieve a list of games",
-        tags: ["NavBar"],
+        summary: "Retrieve a list of Navbaritems",
+        tags: ["NavbarItem"],
         responses: {
           200: {
-            description: "A list of games",
+            description: "A list of Navbaritems",
             content: {
               "application/json": {
                 schema: {
@@ -790,18 +791,8 @@ export const swaggerDocument = {
                     type: "object",
                     properties: {
                       id: { type: "number" },
-                      title: { type: "string" },
-                      description: { type: "string" },
-                      thumbnail: { type: "string" },
-                      videoUrl: { type: "string" },
-                      genre: { type: "string" },
-                      category: { type: "string" },
-                      ReleaseYear: { type: "number" },
-                      NOPlayes: { type: "number" },
-                      AVGBet: { type: "number" },
-                      AVGCashOut: { type: "number" },
-                      CurrentPlayes: { type: "number" },
-                      GamingRank: { type: "number" },
+                      name: { type: "string" },
+                      destination: { type: "string" },
                     },
                   },
                 },
@@ -809,7 +800,7 @@ export const swaggerDocument = {
             },
           },
           500: {
-            description: "Failed to retrieve games",
+            description: "Failed to retrieve Navbaritems",
             content: {
               "application/json": {
                 schema: {
@@ -825,8 +816,8 @@ export const swaggerDocument = {
         },
       },
       post: {
-        summary: "Create a new game",
-        tags: ["NavBar"],
+        summary: "Create a new Navbaritem",
+        tags: ["NavbarItem"],
         requestBody: {
           required: true,
           content: {
@@ -835,18 +826,8 @@ export const swaggerDocument = {
                 type: "object",
                 properties: {
                   id: { type: "number" },
-                  title: { type: "string" },
-                  description: { type: "string" },
-                  thumbnail: { type: "string" },
-                  videoUrl: { type: "string" },
-                  genre: { type: "string" },
-                  category: { type: "string" },
-                  ReleaseYear: { type: "number" },
-                  NOPlayes: { type: "number" },
-                  AVGBet: { type: "number" },
-                  AVGCashOut: { type: "number" },
-                  CurrentPlayes: { type: "number" },
-                  GamingRank: { type: "number" },
+                  name: { type: "string" },
+                  destination: { type: "string" },
                 },
               },
             },
@@ -854,7 +835,7 @@ export const swaggerDocument = {
         },
         responses: {
           201: {
-            description: "Game created successfully",
+            description: "Navbaritem created successfully",
             content: {
               "application/json": {
                 schema: {
@@ -867,7 +848,7 @@ export const swaggerDocument = {
             },
           },
           500: {
-            description: "Failed to create game",
+            description: "Failed to create Navbaritem",
             content: {
               "application/json": {
                 schema: {
@@ -885,8 +866,8 @@ export const swaggerDocument = {
     },
     "/api/navbaritem/{id}": {
       delete: {
-        summary: "Delete a game by ID",
-        tags: ["NavBar"],
+        summary: "Delete a Navbaritem by ID",
+        tags: ["NavbarItem"],
         parameters: [
           {
             name: "id",
@@ -897,7 +878,7 @@ export const swaggerDocument = {
         ],
         responses: {
           200: {
-            description: "Game deleted successfully",
+            description: "Navbaritem deleted successfully",
             content: {
               "application/json": {
                 schema: {
@@ -910,7 +891,7 @@ export const swaggerDocument = {
             },
           },
           500: {
-            description: "Failed to delete game",
+            description: "Failed to delete Navbaritem",
             content: {
               "application/json": {
                 schema: {
@@ -926,8 +907,8 @@ export const swaggerDocument = {
         },
       },
       put: {
-        summary: "Update a game by ID",
-        tags: ["NavBar"],
+        summary: "Update a Navbaritem by ID",
+        tags: ["NavbarItem"],
         parameters: [
           {
             name: "id",
@@ -943,17 +924,7 @@ export const swaggerDocument = {
               schema: {
                 type: "object",
                 properties: {
-                  title: { type: "string" },
-                  description: { type: "string" },
-                  thumbnail: { type: "string" },
-                  videoUrl: { type: "string" },
-                  genre: { type: "string" },
-                  ReleaseYear: { type: "number" },
-                  NOPlayes: { type: "number" },
-                  AVGBet: { type: "number" },
-                  AVGCashOut: { type: "number" },
-                  CurrentPlayes: { type: "number" },
-                  GamingRank: { type: "number" },
+                  name: { type: "string" },
                 },
               },
             },
@@ -961,7 +932,7 @@ export const swaggerDocument = {
         },
         responses: {
           200: {
-            description: "Game updated successfully",
+            description: "Navbaritem updated successfully",
             content: {
               "application/json": {
                 schema: {
