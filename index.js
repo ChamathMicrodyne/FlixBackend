@@ -4,10 +4,10 @@ import gameRouter from "./routes/gameRouter.js";
 import categoryRouter from "./routes/categoryRouter.js";
 import genreRouter from "./routes/genreRouter.js";
 import titleRouter from "./routes/titleRouter.js";
+import navbaritemRouter from "./routes/navbaritemRouter.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
-import yaml from "js-yaml";
 import fs from "fs";
 
 dotenv.config();
@@ -847,6 +847,7 @@ app.use("/api/games", gameRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/genre", genreRouter);
 app.use("/api/title", titleRouter);
+app.use("/api/navbaritem", navbaritemRouter);
 
 // Export for Vercel serverless
 app.listen(port, () => {
