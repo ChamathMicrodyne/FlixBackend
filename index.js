@@ -9,7 +9,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
-import swaggerDocuments from "./swagger.json" assert { type: "json" };
+//import swaggerDocuments from "./swagger.json" assert { type: "json" };
+import { testswaggerDocuments } from "./testswaggerDocuments.js";
 
 dotenv.config();
 const app = express();
@@ -810,7 +811,7 @@ try {
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocuments, {
+  swaggerUi.setup(testswaggerDocuments, {
     customCss: `
     .execute-wrapper,
     .btn.try-out,
