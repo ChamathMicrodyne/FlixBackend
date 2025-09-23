@@ -9,6 +9,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
+import swaggerDocuments from "./swagger.json" assert { type: "json" };
 
 dotenv.config();
 const app = express();
@@ -24,13 +25,13 @@ try {
   swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf8"));
   console.log("Swagger document loaded successfully");
 } catch (error) {
-  console.error("Error loading Swagger document:", error.message);
+  console.log("Error loading Swagger document:", error.message);
   swaggerDocument = {
     openapi: "3.0.0",
     info: {
       title: "GameFlix Backend API",
       version: "1.0.1",
-      description: "API for managing GameFlix site",
+      description: "API for managing GameFlix site 'internal'",
     },
     servers: [
       {
@@ -809,7 +810,7 @@ try {
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
+  swaggerUi.setup(swaggerDocuments, {
     customCss: `
     .execute-wrapper,
     .btn.try-out,
