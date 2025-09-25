@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const titleSchema = mongoose.Schema({
+const popularGamesSchema = mongoose.Schema({
   id: {
     type: Number,
     required: true,
@@ -15,6 +15,6 @@ const titleSchema = mongoose.Schema({
   },
 });
 
-const Title = mongoose.model("title", titleSchema);
+const PopularGames = mongoose.model("popular-games", popularGamesSchema);
 
-export default Title;
+export default PopularGames;

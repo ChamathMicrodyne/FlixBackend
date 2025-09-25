@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import gameRouter from "./routes/gameRouter.js";
 import categoryRouter from "./routes/categoryRouter.js";
 import genreRouter from "./routes/genreRouter.js";
-import titleRouter from "./routes/titleRouter.js";
+import popularGamesRouter from "./routes/popularGamesRouter.js";
 import navbaritemRouter from "./routes/navbaritemRouter.js";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -59,7 +59,7 @@ mongoose
 app.use("/api/games", gameRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/genre", genreRouter);
-app.use("/api/title", titleRouter);
+app.use("/api/popular-games", popularGamesRouter);
 app.use("/api/navbaritem", navbaritemRouter);
 
 // Export for Vercel serverless

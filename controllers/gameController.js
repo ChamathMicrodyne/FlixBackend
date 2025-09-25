@@ -34,7 +34,6 @@ export async function deleteGames(req, res) {
 
   try {
     await Games.deleteOne({ id: req.params.id });
-
     res.json({
       message: `Game deleted successfully`,
     });
@@ -52,7 +51,6 @@ export async function updateGames(req, res) {
 
   try {
     await Games.updateOne({ id: gameId }, updatingData);
-
     res.json({
       message: "Game updated successfully",
     });

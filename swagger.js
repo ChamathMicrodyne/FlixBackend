@@ -595,11 +595,11 @@ export const swaggerDocument = {
     },
     "/api/title": {
       get: {
-        summary: "Retrieve a list of titles",
-        tags: ["Titles"],
+        summary: "Retrieve a list of PopularGame",
+        tags: ["PopularGames"],
         responses: {
           200: {
-            description: "A list of titles",
+            description: "A list of PopularGame",
             content: {
               "application/json": {
                 schema: {
@@ -616,7 +616,7 @@ export const swaggerDocument = {
             },
           },
           500: {
-            description: "Failed to retrieve titles",
+            description: "Failed to retrieve PopularGame",
             content: {
               "application/json": {
                 schema: {
@@ -632,8 +632,8 @@ export const swaggerDocument = {
         },
       },
       post: {
-        summary: "Create a new title",
-        tags: ["Titles"],
+        summary: "Create a new PopularGame",
+        tags: ["PopularGames"],
         requestBody: {
           required: true,
           content: {
@@ -650,7 +650,7 @@ export const swaggerDocument = {
         },
         responses: {
           201: {
-            description: "Title created successfully",
+            description: "PopularGame created successfully",
             content: {
               "application/json": {
                 schema: {
@@ -663,7 +663,7 @@ export const swaggerDocument = {
             },
           },
           500: {
-            description: "Failed to create title",
+            description: "Failed to create PopularGame",
             content: {
               "application/json": {
                 schema: {
@@ -681,8 +681,8 @@ export const swaggerDocument = {
     },
     "/api/title/{id}": {
       delete: {
-        summary: "Delete a title by ID",
-        tags: ["Titles"],
+        summary: "Delete a PopularGame by ID",
+        tags: ["PopularGames"],
         parameters: [
           {
             name: "id",
@@ -693,7 +693,7 @@ export const swaggerDocument = {
         ],
         responses: {
           200: {
-            description: "Title deleted successfully",
+            description: "PopularGame deleted successfully",
             content: {
               "application/json": {
                 schema: {
@@ -706,7 +706,7 @@ export const swaggerDocument = {
             },
           },
           500: {
-            description: "Failed to delete title",
+            description: "Failed to delete PopularGame",
             content: {
               "application/json": {
                 schema: {
@@ -722,8 +722,8 @@ export const swaggerDocument = {
         },
       },
       put: {
-        summary: "Update a title by ID",
-        tags: ["Titles"],
+        summary: "Update a PopularGame by ID",
+        tags: ["PopularGames"],
         parameters: [
           {
             name: "id",
@@ -747,7 +747,7 @@ export const swaggerDocument = {
         },
         responses: {
           200: {
-            description: "Title updated successfully",
+            description: "PopularGame updated successfully",
             content: {
               "application/json": {
                 schema: {
