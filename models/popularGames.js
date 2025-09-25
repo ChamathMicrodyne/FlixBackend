@@ -10,7 +10,7 @@ const popularGamesSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  title: {
+  genre: {
     type: String
   },
 });

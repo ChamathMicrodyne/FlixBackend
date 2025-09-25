@@ -593,7 +593,7 @@ export const swaggerDocument = {
         },
       },
     },
-    "/api/title": {
+    "/api/popular-games": {
       get: {
         summary: "Retrieve a list of PopularGame",
         tags: ["PopularGames"],
@@ -609,6 +609,7 @@ export const swaggerDocument = {
                     properties: {
                       id: { type: "number" },
                       name: { type: "string" },
+                      genre: { type: "string" },
                     },
                   },
                 },
@@ -643,6 +644,7 @@ export const swaggerDocument = {
                 properties: {
                   id: { type: "number" },
                   name: { type: "string" },
+                  genre: { type: "string" },
                 },
               },
             },
@@ -679,7 +681,7 @@ export const swaggerDocument = {
         },
       },
     },
-    "/api/title/{id}": {
+    "/api/popular-games/{id}": {
       delete: {
         summary: "Delete a PopularGame by ID",
         tags: ["PopularGames"],
@@ -740,6 +742,7 @@ export const swaggerDocument = {
                 type: "object",
                 properties: {
                   name: { type: "string" },
+                  genre: { type: "string" },
                 },
               },
             },
