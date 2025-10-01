@@ -5,6 +5,7 @@ import categoryRouter from "./routes/categoryRouter.js";
 import genreRouter from "./routes/genreRouter.js";
 import popularGamesRouter from "./routes/popularGamesRouter.js";
 import navbaritemRouter from "./routes/navbaritemRouter.js";
+import userRouter from "./routes/userRouter.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
@@ -56,6 +57,7 @@ mongoose
   });
 
 // Routes
+app.use("/api/user", userRouter);
 app.use("/api/games", gameRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/genre", genreRouter);

@@ -11,6 +11,287 @@ export const swaggerDocument = {
     },
   ],
   paths: {
+    "/api/user": {
+      get: {
+        summary: "Retrieve a list of users",
+        tags: ["Users"],
+        responses: {
+          200: {
+            description: "A list of users",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: { type: "number" },
+                      username: { type: "string" },
+                      firstname: { type: "string" },
+                      lastname: { type: "string" },
+                      email: { type: "string" },
+                      password: { type: "string" },
+                      numbercode: { type: "string" },
+                      number: { type: "number" },
+                      birthday: { type: "string" },
+                      countrycode: { type: "string" },
+                      currency: { type: "string" },
+                      zipcode: { type: "number" },
+                      nic: { type: "string" },
+                      ballance: { type: "number" },
+                      noncashballance: { type: "number" },
+                      emailverified: { type: "boolean" },
+                      numberverified: { type: "boolean" },
+                      active: { type: "boolean" },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to retrieve games",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/user/signup": {
+      post: {
+        summary: "Create a new user",
+        tags: ["Users"],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  username: { type: "string" },
+                  firstname: { type: "string" },
+                  lastname: { type: "string" },
+                  email: { type: "string" },
+                  password: { type: "string" },
+                  numbercode: { type: "string" },
+                  number: { type: "number" },
+                  birthday: { type: "string" },
+                  countrycode: { type: "string" },
+                  currency: { type: "string" },
+                  zipcode: { type: "number" },
+                  nic: { type: "string" },
+                  ballance: { type: "number" },
+                  noncashballance: { type: "number" },
+                  emailverified: { type: "boolean" },
+                  numberverified: { type: "boolean" },
+                  active: { type: "boolean" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: "user created successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to create user",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/user/login": {
+      post: {
+        summary: "Login user",
+        tags: ["Users"],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  username: { type: "string" },
+                  password: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "login successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    token: {type: "string"}
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to login",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" }
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/user/{id}": {
+      delete: {
+        summary: "Delete a user by ID",
+        tags: ["Users"],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string" },
+          },
+        ],
+        responses: {
+          200: {
+            description: "user deleted successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to delete user",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      put: {
+        summary: "Update a user by ID",
+        tags: ["Users"],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  firstname: { type: "string" },
+                  lastname: { type: "string" },
+                  email: { type: "string" },
+                  password: { type: "string" },
+                  numbercode: { type: "string" },
+                  number: { type: "number" },
+                  birthday: { type: "string" },
+                  countrycode: { type: "string" },
+                  currency: { type: "string" },
+                  zipcode: { type: "number" },
+                  nic: { type: "string" },
+                  ballance: { type: "number" },
+                  noncashballance: { type: "number" },
+                  emailverified: { type: "boolean" },
+                  numberverified: { type: "boolean" },
+                  active: { type: "boolean" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "user updated successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Internal server error",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     "/api/games": {
       get: {
         summary: "Retrieve a list of games",
