@@ -6,10 +6,13 @@ import genreRouter from "./routes/genreRouter.js";
 import popularGamesRouter from "./routes/popularGamesRouter.js";
 import navbaritemRouter from "./routes/navbaritemRouter.js";
 import userRouter from "./routes/userRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import { swaggerDocument } from "./swagger.js";
+import bodyParser from "body-parser";
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 const app = express();
@@ -18,6 +21,28 @@ const port = process.env.PORT || 3000;
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
+app.use((req, res, next) => {
+  const tokenString = req.header("Authorization");
+
+  if (tokenString != null) {
+    const token = tokenString.replace("Bearer ", "");
+
+    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+      if (decoded != null) {
+        req.user = decoded;
+        console.log(req.user)
+        next();
+      } else {
+        res.status(403).json({
+          message: "Unautherized person invalied token",
+        });
+      }
+    });
+  } else {
+    next();
+  }
+});
 
 // Setup Swagger UI with CDN for all assets
 app.use(
@@ -57,6 +82,7 @@ mongoose
   });
 
 // Routes
+app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/games", gameRouter);
 app.use("/api/category", categoryRouter);

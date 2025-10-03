@@ -1,128 +1,107 @@
-import User from "../models/user.js";
+import Admin from "../models/admin.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { isAdmin } from "./adminControllers.js";
 
 dotenv.config();
 
-export async function createUsers(req, res) {
+export async function createAdmins(req, res) {
   // Hash the password
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-  // Find the user with the highest id
-  const lastUser = await User.findOne().sort({ id: -1 });
-  const newId = lastUser && lastUser.id ? lastUser.id + 1 : 1;
+  // Find the admin with the highest id
+  const lastAdmin = await Admin.findOne().sort({ id: -1 });
+  const newId = lastAdmin && lastAdmin.id ? lastAdmin.id + 1 : 1;
 
-  // Check if username already exists
-  const existingUsername = await User.findOne({ username: req.body.username });
-  if (existingUsername) {
-    return res.status(400).json({ message: "Username is already entered" });
+  // Check if adminname already exists
+  const existingAdminname = await Admin.findOne({ adminname: req.body.adminname });
+  if (existingAdminname) {
+    return res.status(400).json({ message: "Adminname is already entered" });
   }
 
   // Check if email already exists
-  const existingEmail = await User.findOne({ email: req.body.email });
+  const existingEmail = await Admin.findOne({ email: req.body.email });
   if (existingEmail) {
     return res.status(400).json({ message: "Email is already entered" });
   }
 
   // Check if full phone number already exists
-  const existingNumber = await User.findOne({ number: req.body.number });
+  const existingNumber = await Admin.findOne({ number: req.body.number });
   if (existingNumber) {
     return res.status(400).json({ message: "Phone number is already entered" });
   }
 
-  // Check if NIC already exists
-  const existingNic = await User.findOne({ nic: req.body.nic });
-  if (existingNic) {
-    return res.status(400).json({ message: "NIC is already entered" });
-  }
 
-  // Validate NIC (Sri Lankan format)
-  if (!validateNIC(req.body.nic)) {
-    return res.status(400).json({
-      message:
-        "Invalid NIC: Must be 10 characters (9 digits + V/X) or 12 digits",
-    });
-  }
-
-  const user = new User({
+  const admin = new Admin({
     id: newId,
-    username: req.body.username,
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
     email: req.body.email,
     password: hashedPassword,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    adminname: req.body.adminname,
     numbercode: req.body.numbercode,
     number: req.body.number,
-    birthday: req.body.birthday,
-    countrycode: req.body.countrycode,
     currency: req.body.currency,
-    zipcode: req.body.zipcode,
-    nic: req.body.nic,
+    pincode: req.body.pincode,
   });
 
-  user
+  admin
     .save()
     .then(() => {
       res.json({
-        message: "User created successfully",
+        message: "Admin created successfully",
       });
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Failed to create user",
+        message: "Failed to create admin",
         error: err,
       });
     });
 }
 
-export async function getUsers(req, res) {
+export async function getAdmins(req, res) {
   try {
     if (isAdmin(req)) {
-      const user = await User.find();
-      res.json(user);
+      const admin = await Admin.find();
+      res.json(admin);
     } else {
       res.json({
-        message: "Your not authorized",
-      });
+      message: "Your not authorized",
+    });
     }
   } catch (err) {
     res.json({
-      message: "Failed to retrieve users",
+      message: "Failed to retrieve admins",
       error: err,
     });
   }
 }
 
-export function loginUser(req, res) {
-  const username = req.body.username;
+export function loginAdmin(req, res) {
+  const email = req.body.email;
   const password = req.body.password;
 
-  User.findOne({ username: username }).then((user) => {
-    if (user == null) {
+  Admin.findOne({ email: email }).then((admin) => {
+    if (admin == null) {
       res.status(404).json({
-        message: "User not found",
+        message: "Admin not found",
       });
     } else {
-      const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+      const isPasswordCorrect = bcrypt.compareSync(password, admin.password);
 
       const token = jwt.sign(
         {
-          username: user.username,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          numbercode: user.numbercode,
-          number: user.number,
-          birthday: user.birthday,
-          countrycode: user.countrycode,
-          currency: user.currency,
-          zipcode: user.zipcode,
-          nic: user.nic,
-          emailverified: user.emailverified,
-          numberverified: user.numberverified,
-          active: user.active,
+          email: admin.email,
+          firstName: admin.firstName,
+          lastName: admin.lastName,
+          adminname: admin.adminname,
+          numbercode: admin.numbercode,
+          number: admin.number,
+          currency: admin.currency,
+          pincode: admin.pincode,
+          role: admin.role,
+          active: admin.active,
           exp: Math.floor(Date.now() / 1000) + 12 * 60 * 60, // Expire in 12 hours
         },
         process.env.JWT_KEY
@@ -142,22 +121,22 @@ export function loginUser(req, res) {
   });
 }
 
-export async function deleteUsers(req, res) {
+export async function deleteAdmins(req, res) {
   try {
-    await User.deleteOne({ id: req.params.id });
+    await Admin.deleteOne({ id: req.params.id });
     res.json({
-      message: `User deleted successfully`,
+      message: `Admin deleted successfully`,
     });
   } catch (err) {
     res.json({
-      message: "Failed to delete user",
+      message: "Failed to delete admin",
       error: err,
     });
   }
 }
 
-export async function updateUsers(req, res) {
-  const userId = req.params.id;
+export async function updateAdmins(req, res) {
+  const adminId = req.params.id;
   const updateData = {};
 
   // Only include fields that are provided in req.body
@@ -182,18 +161,12 @@ export async function updateUsers(req, res) {
     updateData.numberverified = req.body.numberverified;
   if (req.body.active) updateData.active = req.body.active;
 
-  // Validate NIC if provided
-  if (req.body.nic && !validateNIC(req.body.nic)) {
-    return res.status(400).json({
-      message: "Invalid NIC: Must be (9 digits + V/X) or 12 digits",
-    });
-  }
 
   // Check duplicates only for fields being updated
   if (req.body.email) {
-    const existingEmail = await User.findOne({
+    const existingEmail = await Admin.findOne({
       email: req.body.email,
-      id: { $ne: userId },
+      id: { $ne: adminId },
     });
     if (existingEmail) {
       return res.status(400).json({ message: "Email is already entered" });
@@ -207,9 +180,9 @@ export async function updateUsers(req, res) {
         data: req.body.number,
       });
     }
-    const existingNumber = await User.findOne({
+    const existingNumber = await Admin.findOne({
       number: req.body.number,
-      id: { $ne: userId },
+      id: { $ne: adminId },
     });
     if (existingNumber) {
       return res
@@ -219,9 +192,9 @@ export async function updateUsers(req, res) {
   }
 
   if (req.body.nic) {
-    const existingNic = await User.findOne({
+    const existingNic = await Admin.findOne({
       nic: req.body.nic,
-      id: { $ne: userId },
+      id: { $ne: adminId },
     });
     if (existingNic) {
       return res.status(400).json({ message: "NIC is already entered" });
@@ -229,11 +202,11 @@ export async function updateUsers(req, res) {
   }
 
   try {
-    const result = await User.updateOne({ id: userId }, { $set: updateData });
+    const result = await Admin.updateOne({ id: adminId }, { $set: updateData });
     if (result.matchedCount === 0) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Admin not found" });
     }
-    res.json({ message: "User updated successfully" });
+    res.json({ message: "Admin updated successfully" });
   } catch (err) {
     res
       .status(500)
@@ -241,21 +214,25 @@ export async function updateUsers(req, res) {
   }
 }
 
-// NIC Validation Function (for Sri Lankan old and new formats)
-function validateNIC(nic) {
-  if (!nic || typeof nic !== "string") {
+export function checkAdmin(req, res) {
+  if (isAdmin(req)) {
+    res.status(200).json({
+      message: "Your Admin",
+      role: "admin",
+    });
+  } else {
+    res.status(200).json({
+      message: "Your Not Admin",
+    });
+  }
+}
+
+export function isAdmin(req) {
+  if (req.admin == null) {
     return false;
   }
-
-  // Old format: 9 digits + V/X (10 characters)
-  if (nic.length === 10 && /^\d{9}[VvXx]$/.test(nic)) {
-    return true;
+  if (req.admin.role != "admin") {
+    return false;
   }
-
-  // New format: 12 digits
-  if (nic.length === 12 && /^\d{12}$/.test(nic)) {
-    return true;
-  }
-
-  return false;
+  return true;
 }
