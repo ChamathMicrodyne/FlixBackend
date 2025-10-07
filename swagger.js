@@ -158,7 +158,7 @@ export const swaggerDocument = {
                   type: "object",
                   properties: {
                     message: { type: "string" },
-                    token: { type: "string" },
+                    token: {type: "string"}
                   },
                 },
               },
@@ -171,141 +171,7 @@ export const swaggerDocument = {
                 schema: {
                   type: "object",
                   properties: {
-                    message: { type: "string" },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    "/api/user/refreshbalance": {
-      post: {
-        summary: "Refresh user balance",
-        tags: ["Users"],
-        security: [{ bearerAuth: [] }],
-        requestBody: {
-          required: true,
-          content: {
-            "application/json": {
-              schema: {
-                type: "object",
-                properties: {
-                },
-              },
-            },
-          },
-        },
-        responses: {
-          200: {
-            description: "Balance refresh successfully",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    message: {
-                      type: "string",
-                      example: "Balance refresh successfully",
-                    }
-                  },
-                },
-              },
-            },
-          },
-          401: {
-            description: "User not found, please login first",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    message: {
-                      type: "string",
-                      example: "User not found please login first",
-                    },
-                  },
-                },
-              },
-            },
-          },
-          404: {
-            description: "User not found",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    message: { type: "string", example: "User not found" },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    "/api/user/updatebalance": {
-      post: {
-        summary: "Refresh user balance",
-        tags: ["Users"],
-        security: [{ bearerAuth: [] }],
-        requestBody: {
-          required: true,
-          content: {
-            "application/json": {
-              schema: {
-                type: "object",
-                properties: {
-                  balance: { type: "string" },
-                  noncashbalance: { type: "string" },
-                },
-              },
-            },
-          },
-        },
-        responses: {
-          200: {
-            description: "Balance update successfully",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    message: {
-                      type: "string",
-                      example: "Balance update successfully",
-                    }
-                  },
-                },
-              },
-            },
-          },
-          401: {
-            description: "User not found, please login first",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    message: {
-                      type: "string",
-                      example: "User not found please login first",
-                    },
-                  },
-                },
-              },
-            },
-          },
-          404: {
-            description: "User not found",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    message: { type: "string", example: "User not found" },
+                    message: { type: "string" }
                   },
                 },
               },
