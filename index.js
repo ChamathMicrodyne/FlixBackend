@@ -18,6 +18,15 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middlewares
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://flix-backend-psi.vercel.app", "http://quickrunz.com", "https://cdnjs.cloudflare.com"], // Replace with your frontend's URL
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+    credentials: false, // Allow cookies or authentication headers if needed
+  })
+);
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -56,11 +65,11 @@ app.use(
     }
   `,
     customCssUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.6.0/swagger-ui.min.css",
     swaggerJsUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.6.0/swagger-ui-bundle.js",
     swaggerStandalonePresetUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-standalone-preset.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.6.0/swagger-ui-standalone-preset.js",
     swaggerOptions: {
       persistAuthorization: false,
       docExpansion: "none",
