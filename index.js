@@ -13,6 +13,7 @@ import swaggerUi from "swagger-ui-express";
 import { swaggerDocument } from "./swagger.js";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
+import footerRouter from "./routes/footerRouter.js";
 
 dotenv.config();
 const app = express();
@@ -95,6 +96,7 @@ app.use("/api/category", categoryRouter);
 app.use("/api/genre", genreRouter);
 app.use("/api/popular-games", popularGamesRouter);
 app.use("/api/navbaritem", navbaritemRouter);
+app.use("/api/footer", footerRouter);
 
 // Export for Vercel serverless
 app.listen(port, () => {

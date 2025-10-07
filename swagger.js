@@ -191,8 +191,7 @@ export const swaggerDocument = {
             "application/json": {
               schema: {
                 type: "object",
-                properties: {
-                },
+                properties: {},
               },
             },
           },
@@ -208,7 +207,7 @@ export const swaggerDocument = {
                     message: {
                       type: "string",
                       example: "Balance refresh successfully",
-                    }
+                    },
                   },
                 },
               },
@@ -276,7 +275,7 @@ export const swaggerDocument = {
                     message: {
                       type: "string",
                       example: "Balance update successfully",
-                    }
+                    },
                   },
                 },
               },
@@ -1364,6 +1363,403 @@ export const swaggerDocument = {
           },
           500: {
             description: "Internal server error",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/footer/discription": {
+      get: {
+        summary: "Retrieve a list of Description",
+        tags: ["Footer"],
+        responses: {
+          200: {
+            description: "A list of Description",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: { type: "number" },
+                      description: { type: "string" },
+                      active: { type: "boolean" },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to retrieve Description",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      post: {
+        summary: "Create a new Description",
+        tags: ["Footer"],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  description: { type: "string" },
+                  active: { type: "boolean" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: "Description created successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to create Description",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/footer/discription/{id}": {
+      delete: {
+        summary: "Delete a Description by ID",
+        tags: ["Footer"],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string" },
+          },
+        ],
+        responses: {
+          200: {
+            description: "Description deleted successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to delete Description",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/footer/socialmedia": {
+      get: {
+        summary: "Retrieve a list of SocialMedia",
+        tags: ["Footer"],
+        responses: {
+          200: {
+            description: "A list of SocialMedia",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: { type: "number" },
+                      icon: { type: "string" },
+                      name: { type: "string" },
+                      link: { type: "string" },
+                      active: { type: "boolean" },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to retrieve SocialMedia",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      post: {
+        summary: "Create a new SocialMedia",
+        tags: ["Footer"],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  icon: { type: "string" },
+                  name: { type: "string" },
+                  link: { type: "string" },
+                  active: { type: "boolean" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: "SocialMedia created successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to create SocialMedia",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/footer/socialmedia/{id}": {
+      delete: {
+        summary: "Delete a SocialMedia by ID",
+        tags: ["Footer"],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string" },
+          },
+        ],
+        responses: {
+          200: {
+            description: "SocialMedia deleted successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to delete SocialMedia",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/footer/hotline": {
+      get: {
+        summary: "Retrieve a list of HotlinesNumbers",
+        tags: ["Footer"],
+        responses: {
+          200: {
+            description: "A list of HotlinesNumbers",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: { type: "number" },
+                      number: { type: "string" },
+                      active: { type: "boolean" },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to retrieve HotlinesNumbers",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      post: {
+        summary: "Create a new HotlinesNumbers",
+        tags: ["Footer"],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  number: { type: "string" },
+                  active: { type: "boolean" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: "HotlinesNumbers created successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to create HotlinesNumbers",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    error: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/footer/hotline/{id}": {
+      delete: {
+        summary: "Delete a HotlinesNumbers by ID",
+        tags: ["Footer"],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string" },
+          },
+        ],
+        responses: {
+          200: {
+            description: "HotlinesNumbers deleted successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: "Failed to delete HotlinesNumbers",
             content: {
               "application/json": {
                 schema: {

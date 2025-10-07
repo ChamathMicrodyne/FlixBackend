@@ -4,8 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
-    "dev": "nodemon index.js",
+    "start": "nodemon index.js --host",
+    "dev": "nodemon index.js --host",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
