@@ -19,13 +19,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middlewares
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "https://flix-backend-psi.vercel.app/", "http://quickrunz.com/"], // Replace with your frontend's URL
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
-    credentials: true, // Allow cookies or authentication headers if needed
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
