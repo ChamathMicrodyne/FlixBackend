@@ -58,11 +58,11 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  ballance: {
+  balance: {
     type: Number,
     default: 0,
   },
-  noncashballance: {
+  noncashbalance: {
     type: Number,
     default: 0,
   },

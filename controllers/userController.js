@@ -142,6 +142,63 @@ export function loginUser(req, res) {
   });
 }
 
+export async function refreshBalance(req, res) {
+  if (req.user === null) {
+    res.status(401).json({
+      message: "User not found please login first",
+    });
+  }
+
+  const user = await User.findOne({ username: req.user.username }).then(
+    (user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      res.status(200).json({
+        message: "Refresh balance successfull",
+        currency: user.currency,
+        balance: user.balance,
+        noncashbalance: user.noncashbalance,
+      });
+    }
+  );
+}
+
+export async function updateBalance(req, res) {
+  // Check if user is authenticated
+  if (!req.user) {
+    return res.status(401).json({
+      message: "User not found, please login first",
+    });
+  }
+
+  try {
+    // Find the user by username
+    const user = await User.findOne({ username: req.user.username });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.balance = user.balance + Number(req.body.balance);
+    user.noncashbalance = user.noncashbalance + Number(req.body.noncashbalance);
+
+    // Save the updated user to the database
+    await user.save();
+
+    // Return the response
+    res.status(200).json({
+      message: "Balance update successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to update balance",
+      error: error.message,
+    });
+  }
+}
+
 export async function deleteUsers(req, res) {
   try {
     await User.deleteOne({ id: req.params.id });
@@ -174,9 +231,9 @@ export async function updateUsers(req, res) {
   if (req.body.currency) updateData.currency = req.body.currency;
   if (req.body.zipcode) updateData.zipcode = req.body.zipcode;
   if (req.body.nic) updateData.nic = req.body.nic;
-  if (req.body.ballance) updateData.ballance = req.body.ballance;
-  if (req.body.noncashballance)
-    updateData.noncashballance = req.body.noncashballance;
+  if (req.body.balance) updateData.balance = req.body.balance;
+  if (req.body.noncashbalance)
+    updateData.noncashbalance = req.body.noncashbalance;
   if (req.body.emailverified) updateData.emailverified = req.body.emailverified;
   if (req.body.numberverified)
     updateData.numberverified = req.body.numberverified;
