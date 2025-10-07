@@ -38,7 +38,6 @@ app.use((req, res, next) => {
     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
       if (decoded != null) {
         req.user = decoded;
-        console.log(req.user);
         next();
       } else {
         res.status(403).json({
