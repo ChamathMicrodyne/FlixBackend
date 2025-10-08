@@ -1,12 +1,10 @@
 import {Description, SocialMedia, HotlinesNumbers} from '../models/footer.js'
 
 export async function saveDescription(req, res) {
-  const reqDescription = new Description(req.body);
 
   // Find the user with the highest id
-  const lastreqDescription = await reqDescription.findOne().sort({ id: -1 });
-  const newId =
-    lastreqDescription && lastreqDescription.id ? lastreqDescription.id + 1 : 1;
+  const lastUser = await Description.findOne().sort({ id: -1 });
+  const newId = lastUser && lastUser.id ? lastUser.id + 1 : 1;
 
   const description = new Description({
     id: newId,
@@ -28,10 +26,9 @@ export async function saveDescription(req, res) {
     });
 }
 export async function saveSocialMedia(req, res) {
-  const reqSocialMedia = new SocialMedia(req.body);
 
   // Find the user with the highest id
-  const lastreqSocialMedia = await reqSocialMedia.findOne().sort({ id: -1 });
+  const lastreqSocialMedia = await SocialMedia.findOne().sort({ id: -1 });
   const newId =
     lastreqSocialMedia && lastreqSocialMedia.id ? lastreqSocialMedia.id + 1 : 1;
 
@@ -57,10 +54,8 @@ export async function saveSocialMedia(req, res) {
     });
 }
 export async function saveHotlinesNumbers(req, res) {
-  const reqHotlinesNumbers = new HotlinesNumbers(req.body);
-
   // Find the user with the highest id
-  const lastreqHotlinesNumbers = await reqHotlinesNumbers
+  const lastreqHotlinesNumbers = await HotlinesNumbers
     .findOne()
     .sort({ id: -1 });
   const newId =
@@ -162,5 +157,61 @@ export async function deleteHotlinesNumbers(req, res) {
       message: "Failed to delete HotlinesNumbers",
       error: err,
     });
+  }
+}
+
+
+export async function updateDescription(req, res) {
+  const ParamId = req.params.id;
+  const updatingData = req.body;
+
+  try {
+    await Description.updateOne({ id: ParamId }, updatingData);
+
+    res.json({
+      message: "Description updated successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Internal server error",
+      error: err,
+    });
+    return;
+  }
+}
+export async function updateSocialMedia(req, res) {
+  const ParamId = req.params.id;
+  const updatingData = req.body;
+
+  try {
+    await SocialMedia.updateOne({ id: ParamId }, updatingData);
+
+    res.json({
+      message: "SocialMedia updated successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Internal server error",
+      error: err,
+    });
+    return;
+  }
+}
+export async function updateHotlinesNumbers(req, res) {
+  const ParamId = req.params.id;
+  const updatingData = req.body;
+
+  try {
+    await HotlinesNumbers.updateOne({ id: ParamId }, updatingData);
+
+    res.json({
+      message: "HotlinesNumbers updated successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Internal server error",
+      error: err,
+    });
+    return;
   }
 }

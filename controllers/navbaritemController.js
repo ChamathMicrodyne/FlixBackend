@@ -1,7 +1,14 @@
 import Navbaritem from "../models/navbaritem.js";
 
-export function saveNavbaritem(req, res) {
-  const navbaritem = new Navbaritem(req.body);
+export async function saveNavbaritem(req, res) {
+  const lastID = await Navbaritem.findOne().sort({ id: -1 });
+  const newId = lastID && lastID.id ? lastID.id + 1 : 1;
+
+  const navbaritem = new Navbaritem({
+    id: newId,
+    name: req.body.name,
+    destination: req.body.destination,
+  });
 
   navbaritem
     .save()

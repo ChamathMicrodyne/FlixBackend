@@ -1,7 +1,13 @@
 import Genre from "../models/genre.js";
 
-export function saveGenre(req, res) {
-  const genre = new Genre(req.body);
+export async function saveGenre(req, res) {
+  const lastID = await Genre.findOne().sort({ id: -1 });
+  const newId = lastID && lastID.id ? lastID.id + 1 : 1;
+
+  const genre = new Genre({
+    id: newId,
+    name: req.body.name
+  });
 
   genre
     .save()

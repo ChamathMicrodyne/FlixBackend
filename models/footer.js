@@ -14,7 +14,7 @@ export const Description = mongoose.model(
     },
     active: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   })
 );
@@ -40,7 +40,7 @@ export const SocialMedia = mongoose.model(
     },
     active: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   })
 );
@@ -58,7 +58,7 @@ export const HotlinesNumbers = mongoose.model(
     },
     active: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   })
 );

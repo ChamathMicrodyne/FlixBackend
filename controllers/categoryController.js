@@ -1,7 +1,14 @@
 import Category from "../models/category.js";
 
-export function saveCategory(req, res) {
-  const category = new Category(req.body);
+export async function saveCategory(req, res) {
+
+  const lastID = await Category.findOne().sort({ id: -1 });
+  const newId = lastID && lastID.id ? lastID.id + 1 : 1;
+
+  const category = new Category({
+    id: newId,
+    name: req.body.name
+  });
 
   category
     .save()

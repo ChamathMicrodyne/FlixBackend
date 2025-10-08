@@ -1,7 +1,24 @@
 import Games from "../models/game.js";
 
-export function saveGames(req, res) {
-  const game = new Games(req.body);
+export async function saveGames(req, res) {
+  const lastID = await Games.findOne().sort({ id: -1 });
+  const newId = lastID && lastID.id ? lastID.id + 1 : 1;
+
+  const game = new Games({
+    id: newId,
+    title: req.body.title,
+    description: req.body.description,
+    thumbnail: req.body.thumbnail,
+    videoUrl: req.body.videoUrl,
+    genre: req.body.genre,
+    category: req.body.category,
+    ReleaseYear: req.body.ReleaseYear,
+    NOPlayes: req.body.NOPlayes,
+    AVGBet: req.body.AVGBet,
+    AVGCashOut: req.body.AVGCashOut,
+    CurrentPlayes: req.body.CurrentPlayes,
+    GamingRank: req.body.GamingRank,
+  });
 
   game
     .save()

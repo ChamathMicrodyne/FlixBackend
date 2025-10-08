@@ -1,7 +1,14 @@
 import PopularGames from "../models/popularGames.js";
 
-export function savePopularGames(req, res) {
-  const popularGames = new PopularGames(req.body);
+export async function savePopularGames(req, res) {
+  const lastID = await PopularGames.findOne().sort({ id: -1 });
+  const newId = lastID && lastID.id ? lastID.id + 1 : 1;
+
+  const popularGames = new PopularGames({
+    id: newId,
+    name: req.body.name,
+    genre: req.body.genre,
+  });
 
   popularGames
     .save()
