@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000;
 // Middlewares
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://flix-backend-psi.vercel.app", "http://quickrunz.com", "https://cdnjs.cloudflare.com"], // Replace with your frontend's URL
+    origin: ["http://localhost:5173", "https://flix-backend-psi.vercel.app", "https://quickrunz.com/"], // Replace with your frontend's URL
     methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
     credentials: false, // Allow cookies or authentication headers if needed
   })
