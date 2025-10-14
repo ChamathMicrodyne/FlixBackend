@@ -105,30 +105,36 @@ export function loginUser(req, res) {
         message: "User not found",
       });
     } else {
+      if (!user.active) {
+        return res.status(403).json({
+          message: "User account is deactivated",
+        });
+      }
+
       const isPasswordCorrect = bcrypt.compareSync(password, user.password);
 
-      const token = jwt.sign(
-        {
-          username: user.username,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          numbercode: user.numbercode,
-          number: user.number,
-          birthday: user.birthday,
-          countrycode: user.countrycode,
-          currency: user.currency,
-          zipcode: user.zipcode,
-          nic: user.nic,
-          emailverified: user.emailverified,
-          numberverified: user.numberverified,
-          active: user.active,
-          exp: Math.floor(Date.now() / 1000) + 12 * 60 * 60, // Expire in 12 hours
-        },
-        process.env.JWT_KEY
-      );
-
       if (isPasswordCorrect) {
+        const token = jwt.sign(
+          {
+            username: user.username,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            numbercode: user.numbercode,
+            number: user.number,
+            birthday: user.birthday,
+            countrycode: user.countrycode,
+            currency: user.currency,
+            zipcode: user.zipcode,
+            nic: user.nic,
+            emailverified: user.emailverified,
+            numberverified: user.numberverified,
+            active: user.active,
+            exp: Math.floor(Date.now() / 1000) + 12 * 60 * 60, // Expire in 12 hours
+          },
+          process.env.JWT_KEY
+        );
+
         res.status(200).json({
           message: "Login successfull",
           token: token,
