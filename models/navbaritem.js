@@ -13,6 +13,10 @@ const navbaritemSchema = mongoose.Schema({
   destination: {
     type: String,
     required: true,
+  },
+  active: {
+    type: Boolean,
+    default: true
   }
 });
 

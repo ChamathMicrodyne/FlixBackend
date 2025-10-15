@@ -8,6 +8,7 @@ export async function saveNavbaritem(req, res) {
     id: newId,
     name: req.body.name,
     destination: req.body.destination,
+    active: req.body.active
   });
 
   navbaritem
