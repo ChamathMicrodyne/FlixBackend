@@ -21,7 +21,7 @@ const port = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors({
-  origin: ["http://localhost:5173", "https://flix-backend-psi.vercel.app", "https://quickrunz.com", "http://quickrunz.com", "http://admin.quickrunz.com", "https://admin.quickrunz.com"], // Add HTTP variant if testing
+  origin: ["http://localhost:5173", "https://flix-backend-psi.vercel.app", "https://quickrunz.com/", "http://quickrunz.com/", "http://admin.quickrunz.com", "https://admin.quickrunz.com"], // Add HTTP variant if testing
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: false,
 }));
