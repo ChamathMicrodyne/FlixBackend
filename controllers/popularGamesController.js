@@ -8,6 +8,7 @@ export async function savePopularGames(req, res) {
     id: newId,
     name: req.body.name,
     genre: req.body.genre,
+    active: req.body.active
   });
 
   popularGames

@@ -13,6 +13,10 @@ const popularGamesSchema = mongoose.Schema({
   genre: {
     type: String
   },
+  active: {
+    type: Boolean,
+    default: true
+  }
 });
 
 const PopularGames = mongoose.model("popular-games", popularGamesSchema);
