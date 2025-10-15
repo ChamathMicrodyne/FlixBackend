@@ -7,7 +7,8 @@ export async function saveCategory(req, res) {
 
   const category = new Category({
     id: newId,
-    name: req.body.name
+    name: req.body.name,
+    active: req.body.active
   });
 
   category

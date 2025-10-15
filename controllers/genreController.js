@@ -6,7 +6,8 @@ export async function saveGenre(req, res) {
 
   const genre = new Genre({
     id: newId,
-    name: req.body.name
+    name: req.body.name,
+    active: req.body.active
   });
 
   genre
